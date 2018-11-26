@@ -1,17 +1,12 @@
 CREATE DATABASE GROUP_PROJECT337;
 USE GROUP_PROJECT337;
 
-create table admin(
-admin_id varchar(20) null unique,
-email varchar(45) not null PRIMARY KEY,
-password varchar(40)NOT NULL UNIQUE
-);
-CREATE TABLE employee_user(
-employee_id varchar(9) NOT NULL UNIQUE ,
+CREATE TABLE employee(
+ID varchar(9) NOT NULL UNIQUE ,
 email varchar(45) not null UNIQUE PRIMARY KEY,
 password varchar(45) not null);
 
-CREATE TABLE Customer(
+CREATE TABLE customer(
 Customer_id varchar(15) Not null unique,
 email varchar(50) NOT NULL UNIQUE PRIMARY KEY,
 password varchar(40) NOT NULL);
