@@ -1,3 +1,4 @@
+drop DATABASE GROUP_PROJECT337;
 CREATE DATABASE GROUP_PROJECT337;
 USE GROUP_PROJECT337;
 
@@ -14,6 +15,12 @@ CREATE TABLE CUSTOMERS(
   cart VARCHAR(30) not null
 );
 
+CREATE TABLE ROLES(
+  role VARCHAR(30) NOT NULL PRIMARY KEY,
+  ch_employee ENUM('No', 'Yes'), 
+  ch_product ENUM('No', 'Yes')
+);
+
 CREATE TABLE EMPLOYEES(
   employeeID varchar(10) NOT NULL PRIMARY KEY,
   email varchar(100) not null UNIQUE,
@@ -25,13 +32,8 @@ CREATE TABLE EMPLOYEES(
   DoB DATE,
   address varchar(300) not null, 
   SSN varchar(9) NOT NULL, 
-  FOREIGN KEY (role) REFERENCES ROLES(role)
-);
-
-CREATE TABLE ROLES(
-  role VARCHAR(30) NOT NULL,
-  ch_employee ENUM('No', 'Yes'), 
-  ch_product ENUM('No', 'Yes')
+  role VARCHAR(30) NOT NULL, 
+  	FOREIGN KEY (role) REFERENCES ROLES(role)
 );
 
 CREATE TABLE PRODUCTS(
@@ -47,11 +49,11 @@ CREATE TABLE PRODUCTS(
 
 CREATE TABLE ORDERS(
   orderID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  FOREIGN KEY (customerid) REFERENCES customers(customerid),
+  customerID varchar(10) NOT NULL,
+    FOREIGN KEY (customerid) REFERENCES customers(customerid),
   cost FLOAT(24),
   status ENUM('pending', 'fulfilled', 'special'),
   orderdate DATE,
   fulfilldate DATE,
   request VARCHAR(300) NOT NULL
 );
-
