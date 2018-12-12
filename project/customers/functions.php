@@ -1,5 +1,5 @@
 <?php 
-$con = mysqli_connect('localhost:3306', 'garbuttz_garbutt', 'rex132660!', 'garbuttz_project1');
+$con = mysqli_connect('localhost:3306', 'super', '', 'group_project337');
 
 if (mysqli_connect_errno()) {
     echo "The Connection was not established: " . mysqli_connect_error();
