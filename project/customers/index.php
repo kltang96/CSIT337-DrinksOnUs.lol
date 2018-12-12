@@ -29,7 +29,7 @@ if(!isset($_SESSION['customer_email'])){
 <body>
 		<!--Header starts here-->
 		<div class="container-fluid">
-		    <h1 style="margin-top: 20px;margin-bottom: 20px;">Exotic Beverages</h1>
+		    <h1 style="margin-top: 20px;margin-bottom: 20px;">DrinksOnUs.lol</h1>
 		</div>
 		<!--Header ends here-->
 		
