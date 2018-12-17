@@ -4,7 +4,6 @@ session_start();
 ?>
 
 <!DOCTYPE>
-    
 <html>
 	<head>
 		<title>Search Results</title>
@@ -117,9 +116,9 @@ session_start();
         	
         	$get_pro = "select * from products where product_keywords like '%$search_query%'";
         
-        	$run_pro = mysqli_query($con, $get_pro); 
+        	$run_pro = $con->query($get_pro); 
         	
-        	while($row_pro=mysqli_fetch_array($run_pro)){
+        	while($row_pro=$run_pro->fetch()){
         	    $pro_desc=$row_pro['product_desc'];
         		$pro_id = $row_pro['product_id'];
         		$pro_cat = $row_pro['product_cat'];

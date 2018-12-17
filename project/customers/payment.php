@@ -6,7 +6,6 @@
     }
 
 	//connect to database
-	//note to zack: change the 4 fields below to connect to your database
 	$servername = "localhost:3306";
 	$dbname = "group_project337";
 	$username = "super"; 

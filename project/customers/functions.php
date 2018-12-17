@@ -1,8 +1,17 @@
 <?php 
-$con = mysqli_connect('localhost:3306', 'super', '', 'group_project337');
-
-if (mysqli_connect_errno()) {
-    echo "The Connection was not established: " . mysqli_connect_error();
+//connect to database
+$servername = "localhost:3306";
+$dbname = "group_project337";
+$username = "super"; 
+$password = "";
+try {
+    $con = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "Connected successfully";
+}
+catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
 }
   
 // getting the user IP address
@@ -37,14 +46,14 @@ function cart() {
     
     	$check_pro = "select * from cart where ip_add='$cid' AND p_id='$pro_id'";
     	
-    	$run_check = mysqli_query($con, $check_pro); 
+    	$run_check = $con->query($check_pro); 
     	
-    	if(mysqli_num_rows($run_check)>0){
+    	if($run_check->rowCount()>0){
     	    echo "<div style='background-color:pink'>Item is already in cart. </div>";
 	    }
 	    else {
         	$insert_pro = "insert into cart (p_id,ip_add,qty) values ('$pro_id','$cid',1)";
-        	$run_pro = mysqli_query($con, $insert_pro); 
+        	$run_pro = $con->query($insert_pro); 
         	echo "<script>window.open('index.php','_self')</script>";
 	    }
     }
@@ -66,9 +75,9 @@ function total_items(){
 		
 		$get_items = "select * from cart where ip_add='$cid'";
 		
-		$run_items = mysqli_query($con, $get_items); 
+		$run_items = $con->query($get_items); 
 		
-		$count_items = mysqli_num_rows($run_items);
+		$count_items = $run_items->rowCount();
 	
 	echo $count_items;
 	}
@@ -89,17 +98,17 @@ function total_price(){
 	
 	$sel_price = "select * from cart where ip_add='$cid'";
 	
-	$run_price = mysqli_query($con, $sel_price); 
+	$run_price = $con->query($sel_price); 
 	
-	while($p_price=mysqli_fetch_array($run_price)){
+	while($p_price=$run_price->fetch()){
 		
 		$pro_id = $p_price['p_id']; 
 		$qty = $p_price['qty']; 
 		
 		$pro_price = "select `product_price` from products where product_id='$pro_id'";
-		$run_pro_price = mysqli_query($con,$pro_price); 
+		$run_pro_price = $con->query($pro_price); 
 		
-		$product_price = mysqli_fetch_array($run_pro_price)['product_price'];
+		$product_price = $run_pro_price->fetch()['product_price'];
 		
 		$price = $product_price * $qty;
 		
@@ -116,32 +125,14 @@ function getCats(){
 	
 	$get_cats = "select * from categories";
 	
-	$run_cats = mysqli_query($con, $get_cats);
+	$run_cats = $con->query($get_cats);
 	
-	while ($row_cats=mysqli_fetch_array($run_cats)){
+	while ($row_cats=$run_cats->fetch()){
 	
 		$cat_id = $row_cats['cat_id']; 
 		$cat_title = $row_cats['cat_title'];
 	
 	    echo "<li><a href='index.php?cat=$cat_id'>$cat_title</a></li>";
-	}
-}
-
-//getting the brands
-function getBrands(){
-	
-	global $con; 
-	
-	$get_brands = "select * from brands";
-	
-	$run_brands = mysqli_query($con, $get_brands);
-	
-	while ($row_brands=mysqli_fetch_array($run_brands)){
-	
-		$brand_id = $row_brands['brand_id']; 
-		$brand_title = $row_brands['brand_title'];
-	
-	    echo "<li><a href='index.php?brand=$brand_id'>$brand_title</a></li>";
 	}
 }
 
@@ -155,9 +146,9 @@ function getPro(){
         	
         	$get_pro = "select * from products order by RAND() ";
         
-        	$run_pro = mysqli_query($con, $get_pro); 
+        	$run_pro = $con->query($get_pro); 
         	
-        	while($row_pro=mysqli_fetch_array($run_pro)){
+        	while($row_pro=($run_pro->fetch())){
         	    $pro_desc=$row_pro['product_desc'];
         		$pro_id = $row_pro['product_id'];
         		$pro_cat = $row_pro['product_cat'];
@@ -195,15 +186,15 @@ function getCatPro(){
     	
     	$get_cat_pro = "select * from products where product_cat='$cat_id'";
     
-    	$run_cat_pro = mysqli_query($con, $get_cat_pro); 
+    	$run_cat_pro = $con->query($get_cat_pro); 
     	
-    	$count_cats = mysqli_num_rows($run_cat_pro);
+    	$count_cats = $run_cat_pro->rowCount();
     	
     	if($count_cats==0){
     	    echo "<h2 style='padding:20px;'>No products where found in this category!</h2>";
 	    }
 	
-    	while($row_cat_pro=mysqli_fetch_array($run_cat_pro)){
+    	while($row_cat_pro=$run_cat_pro->fetch()){
     	    $pro_desc=$row_cat_pro['product_desc'];
     		$pro_id = $row_cat_pro['product_id'];
     		$pro_cat = $row_cat_pro['product_cat'];
@@ -240,9 +231,9 @@ function getBrandPro(){
 	
 	$get_brand_pro = "select * from products where product_brand='$brand_id'";
 
-	$run_brand_pro = mysqli_query($con, $get_brand_pro); 
+	$run_brand_pro = $con->query($get_brand_pro); 
 	
-	$count_brands = mysqli_num_rows($run_brand_pro);
+	$count_brands = $run_brand_pro->rowCount();
 	
 	if($count_brands==0){
 	
@@ -250,7 +241,7 @@ function getBrandPro(){
 	
 	}
 	
-	while($row_brand_pro=mysqli_fetch_array($run_brand_pro)){
+	while($row_brand_pro=$run_brand_pro->fetch()){
 	
 		$pro_id = $row_brand_pro['product_id'];
 		$pro_cat = $row_brand_pro['product_cat'];

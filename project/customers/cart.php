@@ -121,10 +121,10 @@ $_SESSION['cart_array'] = [];
                                     	}
                             		
                             		    $sel_price = "select * from cart where ip_add='$cid'";
-                            		    $run_price = mysqli_query($con, $sel_price); 
+                            		    $run_price = $con->query($sel_price); 
                             		    
                             		    //the whole cart
-                            		    while($p_price=mysqli_fetch_array($run_price)){
+                            		    while($p_price=$run_price->fetch()){
                             			
                             			    $pro_id = $p_price['p_id'];
                     			
@@ -132,11 +132,11 @@ $_SESSION['cart_array'] = [];
                             			
                             			    $pro_price = "select * from products where product_id='$pro_id'";
                             			
-                            			    $run_pro_price = mysqli_query($con,$pro_price); 
+                            			    $run_pro_price = $con->query($pro_price); 
                             			
                             			    //one item in the cart
                             			    $subtotal = 0;
-                            			    while ($pp_price = mysqli_fetch_array($run_pro_price)){
+                            			    while ($pp_price = $run_pro_price->fetch()){
                             			
                                 			    $product_price = $pp_price['product_price'];
                                 			    
@@ -197,7 +197,7 @@ $_SESSION['cart_array'] = [];
         			
             			$delete_product = "delete from cart where p_id='$remove_id' AND ip_add='$cid'";
             			
-            			$run_delete = mysqli_query($con, $delete_product); 
+            			$run_delete = $con->query($delete_product); 
             			
             			if($run_delete){
             		    	echo "<script>window.open('cart.php','_self')</script>";
@@ -207,15 +207,15 @@ $_SESSION['cart_array'] = [];
         			
         			//update qty
         			$user_cart_query = "select * from cart where ip_add='$cid'";
-            		$user_cart = mysqli_query($con, $user_cart_query); 
-    				while($item=mysqli_fetch_array($user_cart)) {
+            		$user_cart = $con->query($user_cart_query); 
+    				while($item=$user_cart->fetch()) {
     				    $p_id = $item['p_id'];
 					    $qty_p_id = "qty_$p_id";
 						$qty = $_POST[$qty_p_id];
 						//if box is not empty;
 						if($qty != '') {
     						$update_qty = "update cart set qty='$qty' WHERE p_id='$p_id' AND ip_add='$cid' ";
-    						$run_qty = mysqli_query($con, $update_qty); 
+    						$run_qty = $con->query($update_qty); 
 						}
     			    }
     			    echo "<script>window.open('cart.php','_self')</script>";

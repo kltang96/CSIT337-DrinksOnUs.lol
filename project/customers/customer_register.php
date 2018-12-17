@@ -65,7 +65,7 @@ include("db.php");
 				
 				<ul id="cats">
 					
-					<?php getBrands(); ?>
+					<?php getCats(); ?>
 				
 				<ul>
 			
@@ -185,13 +185,13 @@ include("db.php");
 		
 		 $insert_c = "insert into customers (customer_ip,customer_name,customer_email,customer_pass,customer_country,customer_city,customer_contact,customer_address,customer_image) values ('$ip','$c_name','$c_email','$c_pass','$c_country','$c_city','$c_contact','$c_address','$c_image')";
 	
-		$run_c = mysqli_query($con, $insert_c); 
+		$run_c = $con->query($insert_c); 
 		
 		$sel_cart = "select * from cart where ip_add='$ip'";
 		
-		$run_cart = mysqli_query($con, $sel_cart); 
+		$run_cart = $con->query($sel_cart); 
 		
-		$check_cart = mysqli_num_rows($run_cart); 
+		$check_cart = $run_cart->rowCount(); 
 		
 		if($check_cart==0){
 		

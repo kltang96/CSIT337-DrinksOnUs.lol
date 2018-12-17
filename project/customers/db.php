@@ -1,12 +1,16 @@
 <?php 
-// change this for test
-
-$con = mysqli_connect('localhost:3306', 'super', '', 'group_project337');
-
-if (mysqli_connect_errno())
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
-
-
+//connect to database
+$servername = "localhost:3306";
+$dbname = "group_project337";
+$username = "super"; 
+$password = "";
+try {
+    $con = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "Connected successfully";
+}
+catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
 ?>

@@ -44,13 +44,13 @@ else {
 	
 		$c_email = $_POST['email'];
 		
-		$c_pass = mysqli_real_escape_string($con, $_POST['pass']);
+		$c_pass = $_POST['pass'];
 		
 		//select hashed password
 		$sel_c = "select customer_pass from customers where customer_email='$c_email'";
-		$run_c = mysqli_query($con, $sel_c);
-		$check_customer = mysqli_fetch_assoc($run_c);
-		    $pass = $check_customer['customer_pass'];
+		$run_c = $con->query($sel_c);
+		$check_customer = $run_c->fetch();
+		$pass = $check_customer['customer_pass'];
 		
 		if($check_customer==0){
 		
@@ -61,9 +61,9 @@ else {
 		
 		$sel_cart = "select * from cart where ip_add='$ip'";
 		
-		$run_cart = mysqli_query($con, $sel_cart); 
+		$run_cart = $con->query($sel_cart); 
 		
-		$check_cart = mysqli_num_rows($run_cart); 
+		$check_cart = $run_cart->rowCount(); 
 		
 		if($check_customer>0 and password_verify($_POST['pass'],$pass)){
 		        //session_register("c_email");
@@ -76,20 +76,10 @@ else {
 		else {
 		
 		echo "<script>alert('login failed')</script>";
-		
-		
 		}
 	}
-	
-	
 	?>
-	
-	
-	
 
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>
