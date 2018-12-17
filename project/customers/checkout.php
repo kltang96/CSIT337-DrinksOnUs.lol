@@ -1,14 +1,6 @@
 <?php 
 include_once("functions.php");
 session_start();
-
-//temp: remove all items from cart
-if(isset($_SESSION['customer_email'])){
-	$ip_add = $_SESSION['customer_email'];
-	$delete_cart = "DELETE from `cart` WHERE ip_add='$ip_add';";
-	echo $delete_cart;
-	mysqli_query($con, $delete_cart);
-}
 ?>
 
 <!DOCTYPE>

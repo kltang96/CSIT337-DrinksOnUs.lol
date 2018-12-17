@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2018 at 08:06 PM
+-- Generation Time: Dec 17, 2018 at 03:57 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -90,8 +90,8 @@ INSERT INTO `cart` (`p_id`, `ip_add`, `qty`) VALUES
 (14, 'something', 1),
 (16, 'something', 1),
 (10, 'something', 1),
-(14, 'user', 7),
-(39, 'train', 11);
+(39, 'train', 11),
+(42, '123', 1);
 
 -- --------------------------------------------------------
 
@@ -151,14 +151,21 @@ INSERT INTO `customers` (`customer_id`, `customer_ip`, `customer_name`, `custome
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(100) NOT NULL,
-  `p_id` int(100) NOT NULL,
-  `c_id` int(100) NOT NULL,
-  `qty` int(100) NOT NULL,
-  `invoice_no` int(100) NOT NULL,
-  `status` text NOT NULL,
-  `order_date` date NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `orderID` int(11) NOT NULL,
+  `customerID` varchar(10) NOT NULL,
+  `cost` float DEFAULT NULL,
+  `status` enum('pending','fulfilled','special') DEFAULT NULL,
+  `orderdate` date DEFAULT NULL,
+  `fulfilldate` date DEFAULT NULL,
+  `request` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderID`, `customerID`, `cost`, `status`, `orderdate`, `fulfilldate`, `request`) VALUES
+(0, '2', 28, 'pending', '2018-12-17', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -183,8 +190,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`product_id`, `product_cat`, `product_brand`, `product_title`, `product_price`, `product_desc`, `product_image`, `product_keywords`) VALUES
 (18, 2, 0, 'tide', 7, '<p>clean ur guts</p>', 0x2e2e2f70726f647563745f696d616765732f2e6a666966, 'tide'),
-(19, 5, 0, 'Monster ', 2.5, '<p>Monster Energy Original 24oz</p>', 0x2e2e2f70726f647563745f696d616765732f6d6f6e737465725f656e657267795f6f726967696e616c5f3530306d6c2e6a7067, 'monster,original,24oz'),
-(20, 5, 0, 'Red Bull', 2.5, '<p>Red Bull Original 12 oz</p>', 0x2e2e2f70726f647563745f696d616765732f5265642d42756c6c2d63616e2e6a7067, 'redbull,original,12oz'),
+(19, 0, 0, 'Monster ', 500, '<p>Monster Energy Original 24oz</p>', '', 'monster,original,24oz'),
 (22, 1, 0, 'Fanta Orange', 2, '<p>Fanta Original Orange Flavor</p>', 0x2e2e2f70726f647563745f696d616765732f31323935333531382e6a666966, 'Fanta,Orange,2liter'),
 (23, 1, 0, 'Inca Kola', 2, '<p>Inca Kola 2 liter</p>', 0x2e2e2f70726f647563745f696d616765732f383336313335362e6a7067, 'inca kola, 2liter,inca'),
 (24, 2, 0, 'Iced Mocha - Dunkin Donuts ', 3.5, '<p>Dunkin Donuts Iced Mocha</p>', 0x2e2e2f70726f647563745f696d616765732f35323130343433382e6a666966, 'iced mocha, mocha, dunkin,dunkin donuts,'),
@@ -208,7 +214,8 @@ INSERT INTO `products` (`product_id`, `product_cat`, `product_brand`, `product_t
 (42, 1, 0, 'Sprite ', 2, '<p>Sprite Lime 2 liter</p>', 0x2e2e2f70726f647563745f696d616765732f3431394e3272454957354c2e6a7067, 'sprite,lime,2liter'),
 (43, 5, 0, 'Monster Ultra Red', 2.5, '<p>Monster Energy Ultra Red 8 oz</p>', 0x2e2e2f70726f647563745f696d616765732f6d6f6e737465722d756c7472612d7265642d702e6a7067, 'monster,red,ultra,8oz'),
 (44, 5, 0, 'Monster Pipeline Punch', 2.5, '<p>Monster Energy Pipeline Punch 8oz</p>', 0x2e2e2f70726f647563745f696d616765732f3430363736343031315f305f363430783634302e6a7067, 'monster,pipeline,punch,8oz'),
-(45, 1, 0, 'Coca Cola ', 2, '<p>Coca Cola Original 2 liter</p>', 0x2e2e2f70726f647563745f696d616765732f436f63615f436f6c615f312e32355f4c745f31303338315f312e6a7067, 'coke,coca,cola,original,2liter');
+(45, 1, 0, 'Coca Cola ', 2, '<p>Coca Cola Original 2 liter</p>', 0x2e2e2f70726f647563745f696d616765732f436f63615f436f6c615f312e32355f4c745f31303338315f312e6a7067, 'coke,coca,cola,original,2liter'),
+(46, 3, 0, 'corn juice ', 1, '<p>corn juice 10 oz</p>', 0x2e2e2f70726f647563745f696d616765732f, 'corn,juice,10oz');
 
 --
 -- Indexes for dumped tables
@@ -238,12 +245,6 @@ ALTER TABLE `categories`
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`),
   ADD UNIQUE KEY `customer_email` (`customer_email`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `products`
@@ -280,16 +281,10 @@ ALTER TABLE `customers`
   MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `order_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

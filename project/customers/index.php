@@ -11,7 +11,7 @@ if(!isset($_SESSION['customer_email'])){
 <!DOCTYPE>
 <html>
 	<head>
-		<title>DrinksOnUs.lol</title>
+		<title>Exotic Beverages</title>
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     	<style>
             .card-img-top {
@@ -19,9 +19,14 @@ if(!isset($_SESSION['customer_email'])){
                 height:250px;
             }
             .card{
-                
-                margin-right:20px;
+                margin-left:10px;
+                margin-right:10px;
                 margin-bottom:10px;
+                margin-top:5px;
+            }
+            .card-body{
+                
+                width: 260px;
             }
     	</style>
 	</head>
@@ -29,7 +34,7 @@ if(!isset($_SESSION['customer_email'])){
 <body>
 		<!--Header starts here-->
 		<div class="container-fluid">
-		    <h1 style="margin-top: 20px;margin-bottom: 20px;">DrinksOnUs.lol</h1>
+		    <h1 style="margin-top: 20px;margin-bottom: 20px;">Exotic Beverages</h1>
 		</div>
 		<!--Header ends here-->
 		
@@ -106,16 +111,16 @@ if(!isset($_SESSION['customer_email'])){
                 </div>
             </div>
             
-            
+            <div class="row" style="padding-left: 30px; padding-right:20px; align="center";">
         				<?php getPro(); ?>
         				<?php getCatPro(); ?>
-            
+            </div>
 	    </div>
 
 		<!--Content wrapper ends-->
 	    
                 <div class="class="fixed-bottom"">
-        			<h2 style="text-align: center">CSIT337 2018</h2>
+        			<h2 style="text-align: center">CSIT355 2018</h2>
     			</div>
             
 	    
