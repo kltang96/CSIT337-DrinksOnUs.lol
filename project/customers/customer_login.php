@@ -20,7 +20,7 @@ else {
 </head>
 <body>
 <div class="container"> 
-	<center><h1 style="margin-bottom: 30px;margin-top: 30px;">Exotic Beverages</h1></center>
+	<center><h1 style="margin-bottom: 30px;margin-top: 30px;">DrinksOnUs.lol</h1></center>
 	
 	<form class="mx-auto w-50 " method="post" action="">
           <div class="form-group">
