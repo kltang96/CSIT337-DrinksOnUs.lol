@@ -16,7 +16,7 @@ include("db.php");
 	
 	$insert_cat = "insert into categories (cat_title) values ('$new_cat')";
 
-	$run_cat = mysqli_query($con, $insert_cat); 
+	$run_cat = $con->query($insert_cat); 
 	
 	if($run_cat){
 	

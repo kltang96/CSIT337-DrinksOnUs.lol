@@ -35,9 +35,9 @@ include("db.php");
         					<?php 
         							$get_cats = "select * from categories";
         	
-        							$run_cats = mysqli_query($con, $get_cats);
+        							$run_cats = $con->query($get_cats);
         	
-        							while ($row_cats=mysqli_fetch_array($run_cats)){
+        							while ($row_cats= $run_cats->fetch()){
         	
         							$cat_id = $row_cats['cat_id']; 
         							$cat_title = $row_cats['cat_title'];
@@ -61,7 +61,7 @@ include("db.php");
         	</tr>
         	<tr>
         		<td align="right"><b>Product Keywords:</b></td>
-        		<td><input type="text" name="product_keywords" size="50" required/></td>
+        		<td><input type="text" name="product_keywords" size="50" /></td>
         	</tr>
         			
         	<tr align="center">
@@ -107,7 +107,7 @@ include("db.php");
 	
 		 $insert_product = "insert into products (product_cat,product_title,product_price,product_desc,product_image,product_keywords) values ('$cat','$title','$price','$desc','$picture','$keywords')";
 		 
-		 $insert_pro = mysqli_query($con, $insert_product);
+		 $insert_pro = $con->query($insert_product);
 		 
 		 if($insert_pro){
 		 

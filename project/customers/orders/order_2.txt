@@ -1,0 +1,3 @@
+18,tide,2,14
+37,Gatorade Cool Blue 32oz,1,3
+45,Coca Cola ,2,4

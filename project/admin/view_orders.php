@@ -18,11 +18,11 @@
 	
 	$get_order = "select * from orders";
 	
-	$run_order = mysqli_query($con, $get_order); 
+	$run_order = $con->query($get_order); 
 	
 	$i = 0;
 	
-	while ($row_order=mysqli_fetch_array($run_order)){
+	while ($row_order=$run_order->fetch()){
 		
 		$orderID = $row_order['orderID'];
 		$customerID = $row_order['customerID'];

@@ -26,11 +26,11 @@ else {
 	
 	$get_pro = "select * from products";
 	
-	$run_pro = mysqli_query($con, $get_pro); 
+	$run_pro = $con->query($get_pro); 
 	
 	$i = 0;
 	
-	while ($row_pro=mysqli_fetch_array($run_pro)){
+	while ($row_pro=$run_pro->fetch()){
 		
 		$pro_id = $row_pro['product_id'];
 		$pro_title = $row_pro['product_title'];

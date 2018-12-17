@@ -15,11 +15,11 @@
 	
 	$get_c = "select * from customers";
 	
-	$run_c = mysqli_query($con, $get_c); 
+	$run_c = $con->query($get_c); 
 	
 	$i = 0;
 	
-	while ($row_c=mysqli_fetch_array($run_c)){
+	while ($row_c=$run_c->fetch()){
 		
 		$c_id = $row_c['customer_id'];
 		$c_name = $row_c['customer_name'];

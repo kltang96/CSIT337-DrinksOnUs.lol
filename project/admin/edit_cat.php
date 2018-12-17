@@ -7,9 +7,9 @@ if(isset($_GET['edit_cat'])){
 	
 	$get_cat = "select * from categories where cat_id='$cat_id'";
 
-	$run_cat = mysqli_query($con, $get_cat); 
+	$run_cat = $con->query($get_cat); 
 	
-	$row_cat = mysqli_fetch_array($run_cat); 
+	$row_cat = $run_cat->fetch(); 
 	
 	$cat_id = $row_cat['cat_id'];
 	$cat_title = $row_cat['cat_title'];
@@ -36,7 +36,7 @@ if(isset($_GET['edit_cat'])){
 	
 	$update_cat = "update categories set cat_title='$new_cat' where cat_id='$update_id'";
 
-	$run_cat = mysqli_query($con, $update_cat); 
+	$run_cat = $con->query($update_cat); 
 	
 	if($run_cat){
 	

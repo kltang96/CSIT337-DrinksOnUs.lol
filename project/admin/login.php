@@ -41,22 +41,20 @@ session_start();
 include("db.php"); 
 	//echo isset($_POST['login']);
 	if(isset($_POST['login'])){
-	
-	$email = mysqli_real_escape_string($con,$_POST['email']);
-	
-	$Sqlstring=mysqli_real_escape_string($con,$_POST['password']);
-	//echo password_hash("admin1", PASSWORD_BCRYPT);
-	//$pass= password_hash($Sqlstring, PASSWORD_BCRYPT);
-	$sel_user = "select user_pass from admins where user_email='$email'";
-	$run_user = mysqli_query($con, $sel_user); 
-	$check_user = mysqli_fetch_assoc($run_user);
-		$pass = $check_user['user_pass'];
+		$email = $_POST['email'];
+		$Sqlstring= $_POST['password'];
+		//echo password_hash("admin1", PASSWORD_BCRYPT);
+		//$pass= password_hash($Sqlstring, PASSWORD_BCRYPT);
+		$sel_user = "select user_pass from admins where user_email='$email'";
+		$run_user = $con->query($sel_user); 
+		$check_user = $run_user->fetch();
+			$pass = $check_user['user_pass'];
 		
-    if(password_verify($_POST['password'] ,$pass)) {
-        $_SESSION['user_email']=$email; 
-        echo "<script>window.open('index.php?logged_in=You have successfully Logged in!','_self')</script>";
-    } else 
-        echo "<script>alert('Password or Email is wrong, try again!')</script>";
+		if(password_verify($_POST['password'] ,$pass)) {
+			$_SESSION['user_email']=$email; 
+			echo "<script>window.open('index.php?logged_in=You have successfully Logged in!','_self')</script>";
+		} else 
+			echo "<script>alert('Password or Email is wrong, try again!')</script>";
     
 	}
 	

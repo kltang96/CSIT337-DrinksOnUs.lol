@@ -66,7 +66,7 @@ session_start();
 				
 				<ul id="cats">
 					
-					<?php getBrands(); ?>
+					<?php getCats(); ?>
 				
 				<ul>
 			

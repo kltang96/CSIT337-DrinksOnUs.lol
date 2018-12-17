@@ -15,11 +15,11 @@
 	
 	$get_cat = "select * from categories";
 	
-	$run_cat = mysqli_query($con, $get_cat); 
+	$run_cat = $con->query($get_cat); 
 	
 	$i = 0;
 	
-	while ($row_cat=mysqli_fetch_array($run_cat)){
+	while ($row_cat=$run_cat->fetch()){
 		
 		$cat_id = $row_cat['cat_id'];
 		$cat_title = $row_cat['cat_title'];

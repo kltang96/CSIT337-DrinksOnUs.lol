@@ -10,11 +10,11 @@ if(isset($_GET['edit_pro'])){
 	
 	$get_pro = "select * from products where product_id='$get_id'";
 	
-	$run_pro = mysqli_query($con, $get_pro); 
+	$run_pro = $con->query($get_pro); 
 	
 	$i = 0;
 	
-	$row_pro=mysqli_fetch_array($run_pro);
+	$row_pro=$run_pro->fetch();
 		
 		$pro_id = $row_pro['product_id'];
 		$pro_title = $row_pro['product_title'];
@@ -27,17 +27,17 @@ if(isset($_GET['edit_pro'])){
 		
 		$get_cat = "select * from categories where cat_id='$pro_cat'";
 		
-		$run_cat=mysqli_query($con, $get_cat); 
+		$run_cat= $con->query($get_cat); 
 		
-		$row_cat=mysqli_fetch_array($run_cat); 
+		$row_cat=$run_cat->fetch(); 
 		
 		$category_title = $row_cat['cat_title'];
 		
 		$get_brand = "select * from brands where brand_id='$pro_brand'";
 		
-		$run_brand=mysqli_query($con, $get_brand); 
+		$run_brand= $con->query($get_brand); 
 		
-		$row_brand=mysqli_fetch_array($run_brand); 
+		$row_brand=$run_brand->fetch(); 
 		
 		$brand_title = $row_brand['brand_title'];
 }
@@ -76,9 +76,9 @@ if(isset($_GET['edit_pro'])){
 					<?php 
 		$get_cats = "select * from categories";
 	
-		$run_cats = mysqli_query($con, $get_cats);
+		$run_cats = $con->query($get_cats);
 	
-		while ($row_cats=mysqli_fetch_array($run_cats)){
+		while ($row_cats= $run_cats->fetch()){
 	
 		$cat_id = $row_cats['cat_id']; 
 		$cat_title = $row_cats['cat_title'];
@@ -87,10 +87,8 @@ if(isset($_GET['edit_pro'])){
 	
 	
 	}
-					
-					?>
-				</select>
-				
+?>
+	</select>
 				
 				</td>
 			</tr>
@@ -103,9 +101,9 @@ if(isset($_GET['edit_pro'])){
 					<?php 
 		$get_brands = "select * from brands";
 	
-	$run_brands = mysqli_query($con, $get_brands);
+	$run_brands = $con->query($get_brands);
 	
-	while ($row_brands=mysqli_fetch_array($run_brands)){
+	while ($row_brands=$run_brands->fetch()){
 	
 		$brand_id = $row_brands['brand_id']; 
 		$brand_title = $row_brands['brand_title'];
@@ -177,7 +175,7 @@ if(isset($_GET['edit_pro'])){
 	
 		 $update_product = "update products set product_cat='$product_cat',product_brand='$product_brand',product_title='$product_title',product_price='$product_price',product_desc='$product_desc',product_image='$product_image', product_keywords='$product_keywords' where product_id='$update_id'";
 		 
-		 $run_product = mysqli_query($con, $update_product);
+		 $run_product = $con->query($update_product);
 		 
 		 if($run_product){
 		 

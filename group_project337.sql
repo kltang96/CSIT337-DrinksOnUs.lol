@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2018 at 03:57 AM
+-- Generation Time: Dec 17, 2018 at 05:35 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -139,10 +139,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `customer_ip`, `customer_name`, `customer_email`, `customer_pass`, `customer_country`, `customer_city`, `customer_contact`, `customer_address`, `customer_image`) VALUES
-(1, 'something', 'me', 'dp1@gmail.com', 'rex132660', 'usa', 'somewhere', 'a number', 'where ever deadpool lives', 'nah'),
 (2, '24.228.66.23', 'user1', 'user', '$2y$10$30Q13UYvwgF/vi/IKP1BFOeL8gdGIuXrSdXkDEupmw6uE3fR8jm7y', 'Select a Country', '', '', '', ''),
 (3, '173.70.82.144', 'hi', 'something', '$2y$10$N57n6GrwVQswQA/1TRnQ2OHPC4fv1RBSDvaV3Nj4nuRsOs3TaHkJS', 'United Kingdom', 'guiohjoih', 'yiohoih', 'who cares', ''),
-(4, '::1', 'train', 'train ', '$2y$10$Ha151mm4XjASFo1r2xxVs.VcXg21vU5rKldwDdF0Sezz1HzTdVBTi', 'Select a Country', '', '', '', '');
+(4, '::1', 'train', 'train ', '$2y$10$Ha151mm4XjASFo1r2xxVs.VcXg21vU5rKldwDdF0Sezz1HzTdVBTi', 'Select a Country', '', '', '', ''),
+(8, '127.0.0.1', 'test', 'test', '$2y$10$sQA4GUGEb.yiFsmt0wDc1OoUynqrGesC0nTk39IBo741GI9OG3Vhi', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`orderID`, `customerID`, `cost`, `status`, `orderdate`, `fulfilldate`, `request`) VALUES
-(0, '2', 28, 'pending', '2018-12-17', NULL, '');
+(1, '2', 32.5, 'pending', '2018-12-17', NULL, ''),
+(2, '2', 21, 'pending', '2018-12-17', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -247,6 +248,12 @@ ALTER TABLE `customers`
   ADD UNIQUE KEY `customer_email` (`customer_email`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orderID`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -272,19 +279,25 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `cat_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `cat_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `customer_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `orderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `product_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

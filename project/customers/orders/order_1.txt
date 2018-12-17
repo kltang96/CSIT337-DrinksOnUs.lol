@@ -1,0 +1,3 @@
+25,Iced Original - Dunkin Donuts ,7,24.5
+42,Sprite ,2,4
+34,Gatorade Orange 20z,1,4
